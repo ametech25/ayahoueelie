@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue: #0052FF;
+  --red: #FF073A;
+  --green: #006837;
+  --dark: #050505;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #0052FF;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF073A;
+}
+
+body {
+  background-color: #050505;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glitch effect */
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 98% 0); transform: translate(-2px, 0); }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(2px, 0); }
+  40% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 0); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+  80% { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(98% 0 0 0); transform: translate(2px, 0); }
+  20% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 0); }
+  40% { clip-path: inset(30% 0 50% 0); transform: translate(2px, 0); }
+  60% { clip-path: inset(5% 0 80% 0); transform: translate(-2px, 0); }
+  80% { clip-path: inset(80% 0 10% 0); transform: translate(2px, 0); }
+}
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  color: #FF073A;
+  animation: glitch-1 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  color: #0052FF;
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+/* Scan line effect */
+@keyframes scanline {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+/* Noise texture overlay */
+.noise::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* Cyber border animation */
+@keyframes borderPulse {
+  0%, 100% { border-color: rgba(0, 82, 255, 0.5); }
+  50% { border-color: rgba(0, 82, 255, 1); }
+}
+
+.cyber-border {
+  animation: borderPulse 2s ease-in-out infinite;
+}
+
+/* Text cursor blink */
+.cursor::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+  color: #0052FF;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Grid background */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(0, 82, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 82, 255, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(0, 82, 255, 0.3), 0 0 60px rgba(0, 82, 255, 0.1);
+}
+
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 7, 58, 0.3), 0 0 60px rgba(255, 7, 58, 0.1);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 20px rgba(0, 82, 255, 0.8), 0 0 40px rgba(0, 82, 255, 0.4);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 20px rgba(255, 7, 58, 0.8), 0 0 40px rgba(255, 7, 58, 0.4);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #0052FF 0%, #FF073A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover line effect */
+.card-line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0052FF, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card-line:hover::before {
+  transform: scaleX(1);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 82, 255, 0.3);
+  color: #ffffff;
+}
