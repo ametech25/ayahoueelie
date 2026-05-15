@@ -169,7 +169,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="mb-6"
         >
-          <img src="/icone.svg" alt="AMÉ TECH Logo" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
+          <img src="/ayahoueelie/icone.svg" alt="AMÉ TECH Logo" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
         </motion.div>
 
         {/* Slogan */}

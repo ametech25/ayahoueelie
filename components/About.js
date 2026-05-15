@@ -56,7 +56,7 @@ export default function About() {
               <div className="relative mx-auto w-40 h-40 mb-8">
                 <div className="w-full h-full rounded-full border-2 border-[#0052FF]/40 bg-gradient-to-br from-[#0052FF]/20 to-[#FF073A]/10 flex items-center justify-center">
                   {/* Logo */}
-                  <img src="/logo.svg" alt="AMÉ TECH Logo" className="w-20 h-20" />
+                  <img src="/ayahoueelie/logo.svg" alt="AMÉ TECH Logo" className="w-20 h-20" />
                 </div>
                 {/* Rotating ring */}
                 <motion.div

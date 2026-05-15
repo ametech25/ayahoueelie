@@ -43,7 +43,7 @@ export default function Navbar() {
     setMenuOpen(false);
     if (href.startsWith("/#")) {
       const targetId = href.replace("/", "");
-      
+
       // Si on est déjà sur la page d'accueil, faire un scroll smooth
       if (router.pathname === "/") {
         const target = document.querySelector(targetId);
@@ -74,14 +74,14 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            onClick={(e) => { 
-                if (router.pathname === "/") {
-                    e.preventDefault(); handleNavClick("/#hero"); 
-                }
+            onClick={(e) => {
+              if (router.pathname === "/") {
+                e.preventDefault(); handleNavClick("/#hero");
+              }
             }}
             className="flex items-center gap-3 group"
           >
-            <motion.img whileHover={{ scale: 1.05 }} src="/logo.svg" alt="AMÉ TECH" className="w-12 h-12" />
+            <motion.img whileHover={{ scale: 1.05 }} src="/ayahoueelie/logo.svg" alt="AMÉ TECH" className="w-12 h-12" />
           </Link>
 
           {/* Desktop Nav */}
@@ -110,21 +110,21 @@ export default function Navbar() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
-              <Link
-                href="/cv"
-                className="px-5 py-2 border border-[#FF073A] text-[#FF073A] font-mono text-sm tracking-wider hover:bg-[#FF073A] hover:text-white transition-all duration-300"
-              >
-                Mon CV
-              </Link>
-              <motion.a
-                href="/#contact"
-                onClick={(e) => { e.preventDefault(); handleNavClick("/#contact"); }}
-                className="flex items-center gap-2 px-5 py-2 border border-[#0052FF] text-[#0052FF] font-mono text-sm tracking-wider hover:bg-[#0052FF] hover:text-white transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-[#FF073A]">&gt;_</span> Contact
-              </motion.a>
+            <Link
+              href="/cv"
+              className="px-5 py-2 border border-[#FF073A] text-[#FF073A] font-mono text-sm tracking-wider hover:bg-[#FF073A] hover:text-white transition-all duration-300"
+            >
+              Mon CV
+            </Link>
+            <motion.a
+              href="/#contact"
+              onClick={(e) => { e.preventDefault(); handleNavClick("/#contact"); }}
+              className="flex items-center gap-2 px-5 py-2 border border-[#0052FF] text-[#0052FF] font-mono text-sm tracking-wider hover:bg-[#0052FF] hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="text-[#FF073A]">&gt;_</span> Contact
+            </motion.a>
           </div>
 
           {/* Mobile hamburger */}
@@ -166,19 +166,19 @@ export default function Navbar() {
                 </motion.span>
               </a>
             ))}
-            
+
             <Link
-                href="/cv"
-                onClick={() => setMenuOpen(false)}
-                className="font-michroma text-2xl text-[#FF073A] hover:text-white transition-colors tracking-widest mt-4"
+              href="/cv"
+              onClick={() => setMenuOpen(false)}
+              className="font-michroma text-2xl text-[#FF073A] hover:text-white transition-colors tracking-widest mt-4"
+            >
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.07 }}
               >
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.07 }}
-                >
-                  MON CV
-                </motion.span>
+                MON CV
+              </motion.span>
             </Link>
 
             {/* Decorative element */}

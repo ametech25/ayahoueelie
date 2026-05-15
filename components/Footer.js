@@ -20,7 +20,7 @@ export default function Footer() {
             className="flex flex-col items-center justify-center gap-2"
           >
             {/* Mini logo */}
-            <img src="/logo.svg" alt="Logo" className="w-50 h-20" />
+            <img src="/ayahoueelie/logo.svg" alt="Logo" className="w-50 h-20" />
             <p className="font-mono text-xs text-white/20 tracking-wider text-center">
               Designing the Future of<br />Technology
             </p>
