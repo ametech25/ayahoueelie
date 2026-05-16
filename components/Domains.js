@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { domains as domainsData } from "../data/portfolioData";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useRevealMotion } from "@/hooks/useRevealMotion";
 
 const domainIcons = {
   "01": (
@@ -45,96 +45,81 @@ const domainIcons = {
       <path d="M8 24 L18 24" stroke="#0052FF" strokeWidth="1.5" strokeLinecap="round" />
       <path d="M30 24 L40 24" stroke="#0052FF" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
-  )
+  ),
 };
+
+function DomainCard({ domain, index, inView }) {
+  const { visible: _v, ...cardMotion } = useRevealMotion(inView, { delay: 0.08 + index * 0.1, y: 24 });
+
+  return (
+    <motion.div
+      {...cardMotion}
+      whileHover={{ y: -6, transition: { duration: 0.2 } }}
+      className="group relative border border-white/10 p-6 sm:p-8 cursor-default overflow-hidden bg-[#050505] card-line"
+    >
+      <motion.div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: `radial-gradient(circle at 50% 0%, ${domain.color}10 0%, transparent 70%)` }}
+      />
+
+      <span className="absolute top-6 right-6 font-michroma text-4xl text-white/5 select-none">
+        {domain.id}
+      </span>
+
+      <div
+        className="absolute left-0 top-0 w-0.5 h-0 group-hover:h-full transition-all duration-500"
+        style={{ background: domain.color }}
+      />
+
+      <motion.div className="mb-6 relative z-10">{domainIcons[domain.id]}</motion.div>
+
+      <h3 className="font-michroma text-lg text-white mb-3 relative z-10 group-hover:text-white transition-colors">
+        {domain.title}
+      </h3>
+
+      <p className="text-white/50 text-sm leading-relaxed mb-6 relative z-10 group-hover:text-white/70 transition-colors">
+        {domain.desc}
+      </p>
+
+      <div className="flex flex-wrap gap-2 relative z-10">
+        {domain.tags.map((tag) => (
+          <span
+            key={tag}
+            className="font-mono text-xs px-2 py-1 border border-white/10 text-white/40 group-hover:border-white/20 transition-colors"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Domains() {
   const ref = useRef(null);
-  const isMobile = useIsMobile();
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const shouldAnimate = isMobile || inView;
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const { visible: _h, ...headerMotion } = useRevealMotion(inView, { delay: 0 });
 
   return (
-    <section id="domains" className="relative py-32 overflow-hidden">
+    <section id="domains" className="relative py-20 sm:py-28 md:py-32 overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0052FF]/20 to-transparent" />
+      <motion.div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#FF073A]/5 blur-3xl pointer-events-none" />
 
-      {/* Background glow */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#FF073A]/5 blur-3xl pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6" ref={ref}>
+        <motion.div {...headerMotion} className="mb-10 sm:mb-16">
           <div className="flex items-center gap-3 mb-6">
             <span className="font-mono text-xs text-[#0052FF] tracking-widest">// 02</span>
             <span className="flex-1 h-px bg-[#0052FF]/20 max-w-[100px]" />
             <span className="font-mono text-xs text-white/30 tracking-widest">DOMAINES</span>
           </div>
-          <h2 className="font-michroma text-3xl md:text-5xl text-white">
+          <h2 className="font-michroma text-2xl sm:text-3xl md:text-5xl text-white">
             Mes <span className="text-[#0052FF]">expertises</span>
           </h2>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {domainsData.map((domain, i) => (
-            <motion.div
-              key={domain.id}
-              initial={{ opacity: 0, y: 40 }}
-              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: isMobile ? i * 0.1 : i * 0.12 }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="group relative border border-white/10 p-8 cursor-default overflow-hidden bg-[#050505] card-line"
-            >
-              {/* Hover bg */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: `radial-gradient(circle at 50% 0%, ${domain.color}10 0%, transparent 70%)` }}
-              />
-
-              {/* ID number */}
-              <span className="absolute top-6 right-6 font-michroma text-4xl text-white/5 select-none">
-                {domain.id}
-              </span>
-
-              {/* Left accent line */}
-              <div
-                className="absolute left-0 top-0 w-0.5 h-0 group-hover:h-full transition-all duration-500"
-                style={{ background: domain.color }}
-              />
-
-              {/* Icon */}
-              <div className="mb-6 relative z-10">
-                {domainIcons[domain.id]}
-              </div>
-
-              {/* Title */}
-              <h3 className="font-michroma text-lg text-white mb-3 relative z-10 group-hover:text-white transition-colors">
-                {domain.title}
-              </h3>
-
-              {/* Desc */}
-              <p className="text-white/50 text-sm leading-relaxed mb-6 relative z-10 group-hover:text-white/70 transition-colors">
-                {domain.desc}
-              </p>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 relative z-10">
-                {domain.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="font-mono text-xs px-2 py-1 border border-white/10 text-white/40 group-hover:border-white/20 transition-colors"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+            <DomainCard key={domain.id} domain={domain} index={i} inView={inView} />
           ))}
         </div>
       </div>

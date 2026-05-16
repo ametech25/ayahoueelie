@@ -220,40 +220,34 @@ body {
   }
 }
 
-/* Animations auto mobile (CSS — fonctionne dès le 1er affichage) */
-html.is-mobile .mobile-stagger-root > div,
+/* Sections clés — animation auto mobile (visible même si Framer tarde) */
 html.is-mobile .mobile-stagger-root > section {
-  animation: mobileFadeUp 0.75s ease-out both;
+  animation: mobileFadeUp 0.8s ease-out both;
 }
 
-html.is-mobile .mobile-stagger-root > div:nth-child(1),
-html.is-mobile .mobile-stagger-root > section:nth-child(1) {
-  animation-delay: 0.05s;
-}
-html.is-mobile .mobile-stagger-root > div:nth-child(2),
-html.is-mobile .mobile-stagger-root > section:nth-child(2) {
-  animation-delay: 0.18s;
-}
-html.is-mobile .mobile-stagger-root > div:nth-child(3),
-html.is-mobile .mobile-stagger-root > section:nth-child(3) {
-  animation-delay: 0.31s;
-}
-html.is-mobile .mobile-stagger-root > div:nth-child(4),
-html.is-mobile .mobile-stagger-root > section:nth-child(4) {
-  animation-delay: 0.44s;
-}
-html.is-mobile .mobile-stagger-root > div:nth-child(5),
-html.is-mobile .mobile-stagger-root > section:nth-child(5) {
-  animation-delay: 0.57s;
-}
-html.is-mobile .mobile-stagger-root > div:nth-child(6),
-html.is-mobile .mobile-stagger-root > section:nth-child(6) {
-  animation-delay: 0.7s;
-}
+html.is-mobile #hero { animation-delay: 0s; }
+html.is-mobile #about { animation-delay: 0.12s; }
+html.is-mobile #domains { animation-delay: 0.22s; }
+html.is-mobile #projects { animation-delay: 0.32s; }
+html.is-mobile #skills { animation-delay: 0.42s; }
+html.is-mobile #contact { animation-delay: 0.52s; }
 
 html.is-mobile footer {
-  animation: mobileFadeUp 0.75s ease-out 0.85s both;
+  animation: mobileFadeUp 0.75s ease-out 0.62s both;
 }
+
+/* Cartes / blocs internes — entrée décalée sur mobile */
+html.is-mobile #domains .card-line,
+html.is-mobile #projects .group,
+html.is-mobile #skills .grid > div,
+html.is-mobile #contact .grid > div {
+  animation: mobileFadeUp 0.55s ease-out both;
+}
+
+html.is-mobile #domains .card-line:nth-child(1) { animation-delay: 0.35s; }
+html.is-mobile #domains .card-line:nth-child(2) { animation-delay: 0.45s; }
+html.is-mobile #domains .card-line:nth-child(3) { animation-delay: 0.55s; }
+html.is-mobile #domains .card-line:nth-child(4) { animation-delay: 0.65s; }
 
 @keyframes mobileFadeUp {
   from {
@@ -273,9 +267,12 @@ html.is-mobile footer {
 
 @media (prefers-reduced-motion: reduce) {
   .mobile-ambient-layer,
-  html.is-mobile .mobile-stagger-root > div,
   html.is-mobile .mobile-stagger-root > section,
-  html.is-mobile footer {
+  html.is-mobile footer,
+  html.is-mobile #domains .card-line,
+  html.is-mobile #projects .group,
+  html.is-mobile #skills .grid > div,
+  html.is-mobile #contact .grid > div {
     animation: none !important;
   }
 }

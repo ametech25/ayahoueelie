@@ -185,7 +185,10 @@ export default function Hero() {
           }}
           className="mb-6"
         >
-          <SiteLogo className="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain" alt="AMÉ TECH Logo" />
+          <SiteLogo
+            className="w-48 h-48 sm:w-52 sm:h-52 md:w-56 md:h-56 mx-auto object-contain max-w-[min(85vw,280px)]"
+            alt="AMÉ TECH Logo"
+          />
         </motion.div>
 
         {/* Slogan */}

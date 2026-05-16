@@ -9,13 +9,14 @@ import {
   socialLinks,
 } from "../data/portfolioData";
 import { SocialLinksRow } from "./SocialIcons";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useRevealMotion } from "@/hooks/useRevealMotion";
 
 export default function Contact() {
   const ref = useRef(null);
-  const isMobile = useIsMobile();
-  const inView = useInView(ref, { once: true, margin: isMobile ? "-40px" : "-100px" });
-  const shouldAnimate = isMobile || inView;
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const { visible: _h, ...headerMotion } = useRevealMotion(inView, { delay: 0 });
+  const { visible: _l, ...leftMotion } = useRevealMotion(inView, { delay: 0.12, x: -28 });
+  const { visible: _r, ...rightMotion } = useRevealMotion(inView, { delay: 0.2, x: 28 });
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [showSendHelp, setShowSendHelp] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -49,25 +50,20 @@ export default function Contact() {
     }`;
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden">
+    <section id="contact" className="relative py-20 sm:py-28 md:py-32 overflow-hidden">
       <motion.div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FF073A]/20 to-transparent" />
       <motion.div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-[#0052FF]/5 blur-3xl pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6" ref={ref}>
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
+        <motion.div {...headerMotion} className="mb-10 sm:mb-16">
           <div className="flex items-center gap-3 mb-6">
             <span className="font-mono text-xs text-[#0052FF] tracking-widest">// 05</span>
             <span className="flex-1 h-px bg-[#0052FF]/20 max-w-[100px]" />
             <span className="font-mono text-xs text-white/30 tracking-widest">CONTACT</span>
           </div>
-          <h2 className="font-michroma text-3xl md:text-5xl text-white mb-4">
+          <h2 className="font-michroma text-2xl sm:text-3xl md:text-5xl text-white mb-4">
             Travaillons <span className="text-[#FF073A]">ensemble</span>
           </h2>
           <p className="font-mono text-sm text-white/40 tracking-wider">
@@ -75,14 +71,10 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <motion.div className="grid md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
 
           {/* Left: Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
-          >
+          <motion.div {...leftMotion}>
             {/* Email card */}
             <motion.div className="relative border border-white/10 p-6 mb-8 group hover:border-[#0052FF]/30 transition-colors duration-300">
               <motion.div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#0052FF]" />
@@ -131,11 +123,7 @@ export default function Contact() {
           </motion.div>
 
           {/* Right: Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
-          >
+          <motion.div {...rightMotion}>
             <motion.div
               className="space-y-5"
               initial={{ opacity: 0 }}
@@ -263,7 +251,7 @@ export default function Contact() {
               </p>
             </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0052FF]/10 to-transparent" />

@@ -83,7 +83,7 @@ export default function Navbar() {
             className="flex items-center gap-3 group"
           >
             <motion.div whileHover={{ scale: 1.05 }}>
-              <SiteLogo className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+              <SiteLogo className="w-11 h-11 sm:w-12 sm:h-12 object-contain" />
             </motion.div>
           </Link>
 

@@ -2,19 +2,22 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { projects } from "../data/portfolioData";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useRevealMotion } from "@/hooks/useRevealMotion";
 
 // Animated card component
-function ProjectCard({ project, index, inView, isMobile }) {
+function ProjectCard({ project, index, inView }) {
   const [hovered, setHovered] = useState(false);
   const hasLink = Boolean(project.link);
-  const shouldAnimate = isMobile || inView;
+  const { visible: _v, ...cardMotion } = useRevealMotion(inView, {
+    delay: 0.1 + index * 0.12,
+    x: index % 2 === 0 ? -28 : 28,
+    y: 0,
+    duration: 0.7,
+  });
 
   const card = (
     <motion.div
-      initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-      animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.7, delay: isMobile ? index * 0.12 : index * 0.15 }}
+      {...cardMotion}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`group relative border border-white/10 overflow-hidden bg-[#050505] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
@@ -127,31 +130,26 @@ function ProjectCard({ project, index, inView, isMobile }) {
 
 export default function Projects() {
   const ref = useRef(null);
-  const isMobile = useIsMobile();
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const shouldAnimate = isMobile || inView;
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const { visible: _h, ...headerMotion } = useRevealMotion(inView, { delay: 0 });
+  const { visible: _f, ...footerMotion } = useRevealMotion(inView, { delay: 0.45, y: 12 });
 
   return (
-    <section id="projects" className="relative py-32 overflow-hidden">
+    <section id="projects" className="relative py-20 sm:py-28 md:py-32 overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FF073A]/20 to-transparent" />
       <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-[#0052FF]/3 blur-3xl pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6" ref={ref}>
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
+        <motion.div {...headerMotion} className="mb-10 sm:mb-16">
           <div className="flex items-center gap-3 mb-6">
             <span className="font-mono text-xs text-[#0052FF] tracking-widest">// 03</span>
             <span className="flex-1 h-px bg-[#0052FF]/20 max-w-[100px]" />
             <span className="font-mono text-xs text-white/30 tracking-widest">PROJETS</span>
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <h2 className="font-michroma text-3xl md:text-5xl text-white">
+            <h2 className="font-michroma text-2xl sm:text-3xl md:text-5xl text-white">
               Mes <span className="text-[#FF073A]">réalisations</span>
             </h2>
             <span className="font-mono text-xs text-white/20 tracking-widest">
@@ -161,17 +159,15 @@ export default function Projects() {
         </motion.div>
 
         {/* Projects grid */}
-        <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} inView={inView} isMobile={isMobile} />
+            <ProjectCard key={project.id} project={project} index={i} inView={inView} />
           ))}
         </div>
 
         {/* Bottom note */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={shouldAnimate ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: isMobile ? 0 : 0.5 }}
+          {...footerMotion}
           className="mt-10 text-center font-mono text-xs text-white/20 tracking-widest"
         >
           &gt;_ Plus de projets en cours de développement...

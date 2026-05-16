@@ -3,7 +3,9 @@ import { useLayoutEffect, useState } from "react";
 const MOBILE_QUERY = "(max-width: 767px)";
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(MOBILE_QUERY).matches
+  );
 
   useLayoutEffect(() => {
     const mq = window.matchMedia(MOBILE_QUERY);

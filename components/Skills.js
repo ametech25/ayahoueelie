@@ -2,17 +2,15 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { skillCategories, allBadges } from "../data/portfolioData";
+import { useRevealMotion } from "@/hooks/useRevealMotion";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-function SkillBar({ name, level, color, index, inView, isMobile }) {
-  const shouldAnimate = isMobile || inView;
+function SkillBar({ name, level, color, index, inView }) {
+  const { visible, ...barMotion } = useRevealMotion(inView, { delay: index * 0.07, x: -16, y: 0, duration: 0.5 });
+  const isMobile = useIsMobile();
+
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, delay: isMobile ? index * 0.07 : index * 0.08 }}
-      className="group"
-    >
+    <motion.div {...barMotion} className="group">
       <div className="flex justify-between items-center mb-1.5">
         <span className="font-mono text-xs text-white/60 group-hover:text-white transition-colors">
           {name}
@@ -21,119 +19,99 @@ function SkillBar({ name, level, color, index, inView, isMobile }) {
           {level}%
         </span>
       </div>
-      <div className="h-px bg-white/10 overflow-hidden">
+      <motion.div className="h-px bg-white/10 overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
-          animate={shouldAnimate ? { width: `${level}%` } : {}}
-          transition={{ duration: 1.2, delay: isMobile ? 0.2 + index * 0.07 : 0.3 + index * 0.08, ease: "easeOut" }}
+          animate={visible ? { width: `${level}%` } : { width: 0 }}
+          transition={{ duration: 1.2, delay: isMobile ? 0.15 + index * 0.07 : 0.3 + index * 0.08, ease: "easeOut" }}
           style={{ background: color }}
           className="h-full relative"
         >
-          {/* Shimmer effect */}
           <div className="absolute inset-0 bg-white/30 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity" />
         </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function SkillCategory({ cat, catIndex, inView }) {
+  const { visible: _c, ...catMotion } = useRevealMotion(inView, { delay: 0.08 + catIndex * 0.1, y: 24 });
+
+  return (
+    <motion.div {...catMotion} className="relative border border-white/10 p-5 sm:p-6">
+      <div
+        className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2"
+        style={{ borderColor: cat.color }}
+      />
+
+      <div className="flex items-center gap-2 mb-6">
+        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: cat.color }} />
+        <span className="font-mono text-xs tracking-widest" style={{ color: cat.color }}>
+          {cat.category.toUpperCase()}
+        </span>
       </div>
+
+      <motion.div className="space-y-4">
+        {cat.skills.map((skill, i) => (
+          <SkillBar
+            key={skill.name}
+            name={skill.name}
+            level={skill.level}
+            color={cat.color}
+            index={i}
+            inView={inView}
+          />
+        ))}
+      </motion.div>
     </motion.div>
   );
 }
 
 export default function Skills() {
   const ref = useRef(null);
-  const isMobile = useIsMobile();
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const shouldAnimate = isMobile || inView;
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const { visible: _h, ...headerMotion } = useRevealMotion(inView, { delay: 0 });
+  const { visible: _b, ...badgesMotion } = useRevealMotion(inView, { delay: 0.35, y: 16 });
 
   return (
-    <section id="skills" className="relative py-32 overflow-hidden">
+    <section id="skills" className="relative py-20 sm:py-28 md:py-32 overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0052FF]/20 to-transparent" />
       <div className="absolute -left-20 bottom-1/3 w-80 h-80 rounded-full bg-[#0052FF]/5 blur-3xl pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6" ref={ref}>
+        <motion.div {...headerMotion} className="mb-10 sm:mb-16">
           <div className="flex items-center gap-3 mb-6">
             <span className="font-mono text-xs text-[#0052FF] tracking-widest">// 04</span>
             <span className="flex-1 h-px bg-[#0052FF]/20 max-w-[100px]" />
             <span className="font-mono text-xs text-white/30 tracking-widest">COMPÉTENCES</span>
           </div>
-          <h2 className="font-michroma text-3xl md:text-5xl text-white">
+          <h2 className="font-michroma text-2xl sm:text-3xl md:text-5xl text-white">
             Stack <span className="text-[#0052FF]">technique</span>
           </h2>
         </motion.div>
 
-        {/* Skill categories with bars */}
-        <motion.div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {skillCategories.map((cat, catIndex) => (
-            <motion.div
-              key={cat.category}
-              initial={{ opacity: 0, y: 30 }}
-              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: isMobile ? 0 : catIndex * 0.15 }}
-              className="relative border border-white/10 p-6"
-            >
-              {/* Corner accent */}
-              <div
-                className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2"
-                style={{ borderColor: cat.color }}
-              />
-
-              {/* Category header */}
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: cat.color }} />
-                <span className="font-mono text-xs tracking-widest" style={{ color: cat.color }}>
-                  {cat.category.toUpperCase()}
-                </span>
-              </div>
-
-              {/* Skill bars */}
-              <div className="space-y-4">
-                {cat.skills.map((skill, i) => (
-                  <SkillBar
-                    key={skill.name}
-                    name={skill.name}
-                    level={skill.level}
-                    color={cat.color}
-                    index={i}
-                    inView={inView}
-                    isMobile={isMobile}
-                  />
-                ))}
-              </div>
-            </motion.div>
+            <SkillCategory key={cat.category} cat={cat} catIndex={catIndex} inView={inView} />
           ))}
         </motion.div>
 
-        {/* Badges section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: isMobile ? 0 : 0.5 }}
-        >
-          <div className="flex items-center gap-4 mb-6">
+        <motion.div {...badgesMotion}>
+          <motion.div className="flex items-center gap-4 mb-6">
             <span className="font-mono text-xs text-white/30 tracking-widest">TECHNOLOGIES</span>
             <div className="flex-1 h-px bg-white/10" />
-          </div>
+          </motion.div>
 
-          <div className="flex flex-wrap gap-3">
-            {allBadges.map((badge, i) => (
-              <motion.span
+          <motion.div className="flex flex-wrap gap-2 sm:gap-3">
+            {allBadges.map((badge) => (
+              <span
                 key={badge}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={shouldAnimate ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.3, delay: isMobile ? 0 : 0.6 + i * 0.04 }}
-                whileHover={{ scale: 1.1, borderColor: "rgba(0,82,255,0.5)" }}
-                className="font-mono text-xs text-white/50 border border-white/10 px-3 py-1.5 cursor-default transition-colors hover:text-[#0052FF]"
+                className="font-mono text-xs text-white/50 border border-white/10 px-3 py-1.5 cursor-default transition-colors hover:text-[#0052FF] hover:border-[#0052FF]/30"
               >
                 {badge}
-              </motion.span>
+              </span>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
