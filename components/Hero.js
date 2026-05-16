@@ -169,7 +169,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="mb-6"
         >
-          <img src="/ayahoueelie/icone.svg" alt="AMÉ TECH Logo" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
+          <img src="/images/icone.svg" alt="AMÉ TECH Logo" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
         </motion.div>
 
         {/* Slogan */}
@@ -213,7 +213,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="flex flex-wrap justify-center gap-3 mb-12"
           >
-            {["Cybersécurité", "Intelligence Artificielle", "Développement", "Design"].map((item, i) => (
+            {["Cybersécurité", "Big Data & IA","Réseaux", "Développement", "Design"].map((item, i) => (
               <motion.span
                 key={item}
                 initial={{ opacity: 0, scale: 0.8 }}

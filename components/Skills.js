@@ -64,7 +64,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Skill categories with bars */}
-        <div className="grid md:grid-cols-3 gap-10 mb-16">
+        <motion.div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {skillCategories.map((cat, catIndex) => (
             <motion.div
               key={cat.category}
@@ -102,7 +102,7 @@ export default function Skills() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Badges section */}
         <motion.div

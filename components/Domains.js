@@ -6,12 +6,6 @@ import { domains as domainsData } from "../data/portfolioData";
 const domainIcons = {
   "01": (
     <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
-      <path d="M24 4L8 10V24C8 33.6 15.2 42.4 24 44C32.8 42.4 40 33.6 40 24V10L24 4Z" stroke="#0052FF" strokeWidth="2" fill="none" />
-      <path d="M16 24L21 29L32 18" stroke="#FF073A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ),
-  "02": (
-    <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
       <circle cx="24" cy="24" r="8" stroke="#0052FF" strokeWidth="2" />
       <circle cx="24" cy="8" r="3" stroke="#FF073A" strokeWidth="2" />
       <circle cx="24" cy="40" r="3" stroke="#FF073A" strokeWidth="2" />
@@ -23,16 +17,22 @@ const domainIcons = {
       <line x1="32" y1="24" x2="37" y2="24" stroke="#0052FF" strokeWidth="1.5" />
     </svg>
   ),
-  "03": (
+  "02": (
     <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
-      <rect x="4" y="8" width="40" height="32" rx="2" stroke="#0052FF" strokeWidth="2" />
-      <line x1="4" y1="18" x2="44" y2="18" stroke="#0052FF" strokeWidth="1.5" />
+      <rect x="4" y="8" width="40" height="32" rx="2" stroke="#006837" strokeWidth="2" />
+      <line x1="4" y1="18" x2="44" y2="18" stroke="#006837" strokeWidth="1.5" />
       <circle cx="10" cy="13" r="2" fill="#FF073A" />
       <circle cx="18" cy="13" r="2" fill="#FF073A" opacity="0.5" />
       <circle cx="26" cy="13" r="2" fill="#FF073A" opacity="0.3" />
-      <polyline points="14,26 10,30 14,34" stroke="#0052FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <polyline points="34,26 38,30 34,34" stroke="#0052FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <line x1="20" y1="34" x2="28" y2="26" stroke="#006837" strokeWidth="1.5" strokeLinecap="round" />
+      <polyline points="14,26 10,30 14,34" stroke="#006837" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="34,26 38,30 34,34" stroke="#006837" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="20" y1="34" x2="28" y2="26" stroke="#0052FF" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  "03": (
+    <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
+      <path d="M24 4L8 10V24C8 33.6 15.2 42.4 24 44C32.8 42.4 40 33.6 40 24V10L24 4Z" stroke="#0052FF" strokeWidth="2" fill="none" />
+      <path d="M16 24L21 29L32 18" stroke="#FF073A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
   "04": (

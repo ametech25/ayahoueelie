@@ -1,12 +1,15 @@
 // pages/_document.js
 import { Html, Head, Main, NextScript } from "next/document";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Document() {
   return (
     <Html lang="fr">
       <Head>
-        {/* Favicon */}
-        <link rel="icon" href="/icone.svg" />
+        <link rel="icon" href={`${BASE}/images/icone.svg`} type="image/svg+xml" />
+        <link rel="shortcut icon" href={`${BASE}/images/icone.svg`} />
+        <link rel="apple-touch-icon" href={`${BASE}/images/icone.svg`} />
 
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,9 +20,9 @@ export default function Document() {
         />
 
         {/* SEO Meta */}
-        <meta name="description" content="AMÉ TECH, Portfolio de AYAHOUE MAWUFLIMI ELIE dans le monde numérique" />
+        <meta name="description" content="AYAHOUE MAWUFLIMI ELIE dans le monde numérique sous la casquette de AMÉ TECH" />
         <meta property="og:title" content="AMÉ TECH : Designing the Future of Technology" />
-        <meta property="og:description" content="Portfolio de AYAHOUE MAWUFLIMI ELIE dans le monde numérique" />
+        <meta property="og:description" content="AYAHOUE MAWUFLIMI ELIE dans le monde numérique sous la casquette de AMÉ TECH" />
         <meta property="og:type" content="website" />
         <meta name="theme-color" content="#050505" />
       </Head>

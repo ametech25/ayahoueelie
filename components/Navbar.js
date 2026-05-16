@@ -81,7 +81,7 @@ export default function Navbar() {
             }}
             className="flex items-center gap-3 group"
           >
-            <motion.img whileHover={{ scale: 1.05 }} src="/ayahoueelie/logo.svg" alt="AMÉ TECH" className="w-12 h-12" />
+            <motion.img whileHover={{ scale: 1.05 }} src="/images/logo.svg" alt="AMÉ TECH" className="w-12 h-12" />
           </Link>
 
           {/* Desktop Nav */}

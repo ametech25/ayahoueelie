@@ -6,15 +6,16 @@ import { projects } from "../data/portfolioData";
 // Animated card component
 function ProjectCard({ project, index, inView }) {
   const [hovered, setHovered] = useState(false);
+  const hasLink = Boolean(project.link);
 
-  return (
+  const card = (
     <motion.div
       initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative border border-white/10 overflow-hidden bg-[#050505] cursor-default"
+      className={`group relative border border-white/10 overflow-hidden bg-[#050505] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
     >
       {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
@@ -35,11 +36,18 @@ function ProjectCard({ project, index, inView }) {
       {/* Content */}
       <div className="p-6 md:p-8">
         {/* Year & highlight */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
           <span className="font-mono text-xs text-white/30">{project.year}</span>
-          <span className="font-mono text-xs text-[#0052FF] border border-[#0052FF]/30 px-2 py-0.5">
-            {project.highlight}
-          </span>
+          <div className="flex items-center gap-2 flex-wrap justify-end">
+            {project.team && (
+              <span className="font-mono text-xs text-white/50 border border-white/15 px-2 py-0.5">
+                {project.team}
+              </span>
+            )}
+            <span className="font-mono text-xs text-[#0052FF] border border-[#0052FF]/30 px-2 py-0.5">
+              {project.highlight}
+            </span>
+          </div>
         </div>
 
         {/* Title */}
@@ -68,14 +76,16 @@ function ProjectCard({ project, index, inView }) {
         </div>
 
         {/* CTA */}
-        <motion.div
-          animate={{ x: hovered ? 4 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="flex items-center gap-2 font-mono text-xs text-[#0052FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        >
-          <span>&gt;_ Voir le projet</span>
-          <span>→</span>
-        </motion.div>
+        {hasLink && (
+          <motion.div
+            animate={{ x: hovered ? 4 : 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex items-center gap-2 font-mono text-xs text-[#0052FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            <span>&gt;_ Voir le projet</span>
+            <span>→</span>
+          </motion.div>
+        )}
       </div>
 
       {/* Hover glow */}
@@ -96,6 +106,20 @@ function ProjectCard({ project, index, inView }) {
       {/* Bottom accent */}
       <div className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full bg-gradient-to-r from-[#0052FF] to-[#FF073A] transition-all duration-500" />
     </motion.div>
+  );
+
+  if (!hasLink) return card;
+
+  return (
+    <a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block h-full"
+      aria-label={`Voir le projet : ${project.title}`}
+    >
+      {card}
+    </a>
   );
 }
 
