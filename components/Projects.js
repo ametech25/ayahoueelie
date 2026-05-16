@@ -5,6 +5,9 @@ import { projects } from "../data/portfolioData";
 import { useRevealMotion } from "@/hooks/useRevealMotion";
 import Link from "next/link";
 
+// Définition de la base path pour GitHub Pages
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 function ProjectCard({ project, index, inView }) {
   const [hovered, setHovered] = useState(false);
   const hasLink = Boolean(project.link);
@@ -166,7 +169,7 @@ export default function Projects() {
             <ProjectCard key={project.id} project={project} index={i} inView={inView} />
           ))}
 
-          {/* Troisième carte avec fond d'écran WEBP direct */}
+          {/* Troisième carte — Galerie Créations avec chemin adapté à GitHub Pages */}
           <Link href="/creations" className="block h-full">
             <motion.div
               {...galerieMotion}
@@ -174,9 +177,10 @@ export default function Projects() {
               onMouseLeave={() => setGalerieHovered(false)}
               className="group relative border border-white/10 overflow-hidden bg-[#050505] h-full cursor-pointer flex flex-col justify-between"
             >
+              {/* Image de fond corrigée avec la variable BASE */}
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-[0.12] group-hover:opacity-[0.20] transition-opacity duration-500 pointer-events-none mix-blend-luminosity"
-                style={{ backgroundImage: "url('/images/affiches/5.webp')" }} // <-- MODIFIÉ ICI EN CHEMIN DIRECT
+                style={{ backgroundImage: `url('${BASE}/images/affiches/5.webp')` }}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/40 to-[#050505] pointer-events-none" />
 

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function GalerieCreations() {
     const [filter, setFilter] = useState("Tous");
     const [selectedCrea, setSelectedCrea] = useState(null);
@@ -66,10 +68,10 @@ export default function GalerieCreations() {
                                 onClick={() => setSelectedCrea(crea)}
                                 className="group relative bg-[#0d0d0d] border border-white/10 overflow-hidden flex flex-col h-full cursor-pointer"
                             >
-                                {/* Image — UTILISATION DU CHEMIN DE DONNÉES SÉCURISÉ */}
+                                {/* Image — CORRIGÉ POUR GITHUB PAGES */}
                                 <div className="relative w-full pt-[100%] bg-[#151515] overflow-hidden">
                                     <img
-                                        src={crea.image} // <-- CORRIGÉ : Sans variable BASE pour éviter les bugs
+                                        src={`${BASE}${crea.image}`} // <-- Ajout de la variable BASE obligatoire ici
                                         alt={crea.title}
                                         className="absolute top-0 left-0 w-full h-full object-cover block transition-transform duration-500 group-hover:scale-105"
                                     />
@@ -104,7 +106,7 @@ export default function GalerieCreations() {
 
             </div>
 
-            {/* VISIONNEUSE PLEIN ÉCRAN - TOTALEMENT SANS FLOU */}
+            {/* VISIONNEUSE PLEIN ÉCRAN - CORRIGÉ POUR GITHUB PAGES */}
             <AnimatePresence>
                 {selectedCrea && (
                     <motion.div
@@ -130,7 +132,7 @@ export default function GalerieCreations() {
                             className="relative max-w-full max-h-[80vh] flex flex-col items-center"
                         >
                             <img
-                                src={selectedCrea.image} // <-- CORRIGÉ : Sans variable BASE pour éviter les bugs
+                                src={`${BASE}${selectedCrea.image}`} // <-- Ajout de la variable BASE obligatoire ici
                                 alt={selectedCrea.title}
                                 className="max-w-full max-h-[75vh] object-contain border border-white/10 shadow-2xl bg-[#090909]"
                             />
