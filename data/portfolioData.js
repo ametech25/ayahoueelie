@@ -18,14 +18,14 @@ export const personalInfo = {
   portfolio: "ametech.com",
   stats: [
     { value: "3+", label: "Projets" },
-    { value: "4",  label: "Domaines" },
+    { value: "4", label: "Domaines" },
     { value: "2026", label: "Vision" },
   ],
   aboutStats: [
     { label: "Cyber & Réseaux", pct: 75 },
-    { label: "Big Data & IA",   pct: 65 },
-    { label: "Développement",   pct: 80 },
-    { label: "Design",          pct: 85 },
+    { label: "Big Data & IA", pct: 65 },
+    { label: "Développement", pct: 80 },
+    { label: "Design", pct: 85 },
   ],
 };
 
@@ -219,17 +219,17 @@ export const skillCategories = [
     category: "Cybersécurité & Réseaux",
     color: "#FF073A",
     skills: [
-      { name: "Kali Linux",         level: 75 },
-      { name: "Packet Tracer",      level: 70 },
-      { name: "CISCO CCNA 1",   level: 100 },
+      { name: "Kali Linux", level: 75 },
+      { name: "Packet Tracer", level: 70 },
+      { name: "CISCO CCNA 1", level: 100 },
     ],
   },
   {
     category: "Big Data & IA",
     color: "#006837",
     skills: [
-      { name: "Hadoop",             level: 65 },
-      { name: "Kerberos",           level: 60 }
+      { name: "Hadoop", level: 65 },
+      { name: "Kerberos", level: 60 }
     ],
   },
   {
@@ -237,9 +237,9 @@ export const skillCategories = [
     color: "#0052FF",
     skills: [
       { name: "HTML / CSS / JavaScript", level: 85 },
-      { name: "Python",                    level: 80 },
-      { name: "PHP",                       level: 75 },
-      { name: "Django / Laravel",          level: 70 },
+      { name: "Python", level: 80 },
+      { name: "PHP", level: 75 },
+      { name: "Django / Laravel", level: 70 },
     ],
   },
   {
@@ -247,7 +247,7 @@ export const skillCategories = [
     color: "#0052FF",
     skills: [
       { name: "Photoshop / Illustrator", level: 85 },
-      { name: "Canva",                   level: 90 },
+      { name: "Canva", level: 90 },
     ],
   },
 ];
@@ -259,7 +259,7 @@ export const allBadges = [
   // Big Data & IA
   "Hadoop", "Kerberos",
   // Développement
-  "HTML/CSS", "JavaScript", "PHP","MySQL", "Python", "Django", "Laravel",
+  "HTML/CSS", "JavaScript", "PHP", "MySQL", "Python", "Django", "Laravel",
   // Design
   "Photoshop", "Illustrator", "Canva", "UI/UX",
   // Outils
@@ -350,4 +350,24 @@ export const footerSocialLinks = [
     href: "https://www.threads.net/@ame_tech25",
     color: "#ffffff",
   },
+];
+
+// ─── RÉALISATIONS VISUELLES (Pour la page galerie créations) ─────────────────
+export const visualCreations = [
+  { id: "CREA-001", title: "TAG de photo", image: "/images/affiches/1.jpg", category: "Institutionnel" },
+  { id: "CREA-002", title: "Offre Service Impression", image: "/images/affiches/2.jpg", category: "Commercial" },
+  { id: "CREA-003", title: "Theme événementielles", image: "/images/affiches/3.jpg", category: "Institutionnel" },
+  { id: "CREA-004", title: "Affiche de priere", image: "/images/affiches/4.jpg", category: "Événementiel" },
+  { id: "CREA-005", title: "Teasing Jour J-02", image: "/images/affiches/5.jpg", category: "Teasing" },
+  { id: "CREA-006", title: "Affiche Évangélisation", image: "/images/affiches/6.jpg", category: "Événementiel" },
+  { id: "CREA-007", title: "Dépliant Journée carrière Face A", image: "/images/affiches/7.jpg", category: "Édition" },
+  { id: "CREA-008", title: "Dépliant Journée carrière Face B", image: "/images/affiches/8.jpg", category: "Édition" },
+  { id: "CREA-009", title: "Affiche d'Eglise 'Allons en Galilée'", image: "/images/affiches/9.jpg", category: "Événementiel" },
+  { id: "CREA-010", title: "Au revoir de nos parrains", image: "/images/affiches/10.jpg", category: "Événementiel" },
+  { id: "CREA-011", title: "Teasing Jour J-31", image: "/images/affiches/11.jpg", category: "Teasing" },
+  { id: "CREA-012", title: "Affiche La Nuit de l'Apothéose", image: "/images/affiches/12.jpg", category: "Événementiel" },
+  { id: "CREA-013", title: "Affiche Panel Professionnel", image: "/images/affiches/13.jpg", category: "Conférence" },
+  { id: "CREA-014", title: "Affiche de prière GEEAD", image: "/images/affiches/14.jpg", category: "Événementiel" },
+  { id: "CREA-015", title: "Affiche Célébration Pâques", image: "/images/affiches/15.jpg", category: "Événementiel" },
+  { id: "CREA-016", title: "Formation Entreprendre dans l'Agriculture", image: "/images/affiches/16.jpg", category: "Formation" },
 ];

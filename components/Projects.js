@@ -3,6 +3,9 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { projects } from "../data/portfolioData";
 import { useRevealMotion } from "@/hooks/useRevealMotion";
+import Link from "next/link";
+
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 // Animated card component
 function ProjectCard({ project, index, inView }) {
@@ -20,7 +23,7 @@ function ProjectCard({ project, index, inView }) {
       {...cardMotion}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`group relative border border-white/10 overflow-hidden bg-[#050505] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
+      className={`group relative border border-white/10 overflow-hidden bg-[#050505] h-full ${hasLink ? "cursor-pointer" : "cursor-default"}`}
     >
       {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
@@ -133,6 +136,17 @@ export default function Projects() {
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const { visible: _h, ...headerMotion } = useRevealMotion(inView, { delay: 0 });
   const { visible: _f, ...footerMotion } = useRevealMotion(inView, { delay: 0.45, y: 12 });
+  
+  // État local pour gérer le hover de la carte personnalisée
+  const [galerieHovered, setGalerieHovered] = useState(false);
+
+  // Configuration de l'animation pour la carte galerie
+  const { visible: _g, ...galerieMotion } = useRevealMotion(inView, {
+    delay: 0.1 + projects.length * 0.12,
+    x: projects.length % 2 === 0 ? -28 : 28,
+    y: 0,
+    duration: 0.7,
+  });
 
   return (
     <section id="projects" className="relative py-20 sm:py-28 md:py-32 overflow-hidden">
@@ -146,29 +160,131 @@ export default function Projects() {
           <div className="flex items-center gap-3 mb-6">
             <span className="font-mono text-xs text-[#0052FF] tracking-widest">// 03</span>
             <span className="flex-1 h-px bg-[#0052FF]/20 max-w-[100px]" />
-            <span className="font-mono text-xs text-white/30 tracking-widest">PROJETS</span>
+            <span className="font-mono text-xs text-white/30 tracking-widest">PORTFOLIO</span>
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <h2 className="font-michroma text-2xl sm:text-3xl md:text-5xl text-white">
               Mes <span className="text-[#FF073A]">réalisations</span>
             </h2>
             <span className="font-mono text-xs text-white/20 tracking-widest">
-              {projects.length} projets documentés
+              {projects.length + 1} sections documentées
             </span>
           </div>
         </motion.div>
 
         {/* Projects grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} inView={inView} />
           ))}
+
+          {/* ─── TROISIÈME CARTE FIXE : LIEN VERS LA GALERIE VISUELLE ─── */}
+          <Link href="/creations" className="block h-full">
+            <motion.div
+              {...galerieMotion}
+              onMouseEnter={() => setGalerieHovered(true)}
+              onMouseLeave={() => setGalerieHovered(false)}
+              className="group relative border border-white/10 overflow-hidden bg-[#050505] h-full cursor-pointer flex flex-col justify-between"
+            >
+              {/* Image de fond avec opacité réduite */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-[0.12] group-hover:opacity-[0.20] transition-opacity duration-500 pointer-events-none mix-blend-luminosity"
+                style={{ backgroundImage: `url('${BASE}/images/affiches/5.jpg')` }} // <-- Ton affiche Teasing en fond !
+              />
+              {/* Dégradé pour assombrir le bas et garantir la lisibilité */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/40 to-[#050505] pointer-events-none" />
+
+              <div className="relative z-10">
+                {/* Top bar de la carte */}
+                <div className="flex items-center justify-between px-6 py-3 border-b border-white/10 bg-[#050505]/80 backdrop-blur-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-[#0052FF]" />
+                    <div className="w-2 h-2 rounded-full bg-[#FF073A] opacity-60" />
+                    <div className="w-2 h-2 rounded-full bg-white opacity-20" />
+                  </div>
+                  <span className="font-mono text-xs text-white/20">PRJ-003</span>
+                  <span className="font-mono text-xs px-2 py-0.5 border border-[#0052FF]/40 text-[#0052FF] bg-[#0052FF]/5">
+                    Découvrir
+                  </span>
+                </div>
+
+                {/* Contenu principal */}
+                <div className="p-6 md:p-8">
+                  <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
+                    <span className="font-mono text-xs text-white/30">Continu</span>
+                    <div className="flex items-center gap-2 flex-wrap justify-end">
+                      <span className="font-mono text-xs text-white/50 border border-white/15 px-2 py-0.5">
+                        Portfolio Visuel
+                      </span>
+                      <span className="font-mono text-xs text-[#FF073A] border border-[#FF073A]/30 px-2 py-0.5">
+                        Design
+                      </span>
+                    </div>
+                  </div>
+
+                  <h3 className="font-michroma text-xl md:text-2xl text-white mb-2 group-hover:text-[#0052FF] transition-colors duration-300">
+                    CRÉATIONS VISUELLES
+                  </h3>
+                  <p className="font-mono text-xs text-white/40 tracking-wider mb-4">
+                    Design graphique, branding & concepts numériques
+                  </p>
+
+                  <p className="text-white/50 text-sm leading-relaxed mb-6 group-hover:text-white/70 transition-colors duration-300">
+                    Un aperçu de mon travail créatif au-delà du code : logos, affiches, maquettes UI, et identités visuelles conçus pour divers projets et concepts.
+                  </p>
+                </div>
+              </div>
+
+              {/* Tags et bouton d'action calés en bas */}
+              <div className="p-6 md:p-8 pt-0 relative z-10 mt-auto">
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {["Photoshop", "Illustrator", "Figma", "Canva"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-mono text-xs px-3 py-1 bg-white/5 border border-white/10 text-white/50 group-hover:border-[#0052FF]/30 transition-colors duration-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <motion.div
+                  animate={{ x: galerieHovered ? 4 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center gap-2 font-mono text-xs text-[#0052FF] opacity-100 transition-opacity duration-300"
+                >
+                  <span>&gt;_ Explorer la galerie</span>
+                  <span>→</span>
+                </motion.div>
+              </div>
+
+              {/* Hover glow effet */}
+              <AnimatePresence>
+                {galerieHovered && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                      background: "radial-gradient(circle at 50% 50%, rgba(0,82,255,0.05) 0%, transparent 70%)",
+                    }}
+                  />
+                )}
+              </AnimatePresence>
+
+              {/* Ligne d'accent inférieure */}
+              <div className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full bg-gradient-to-r from-[#0052FF] to-[#FF073A] transition-all duration-500 z-20" />
+            </motion.div>
+          </Link>
+          {/* ───────────────────────────────────────────────────────────── */}
+
         </div>
 
         {/* Bottom note */}
         <motion.p
           {...footerMotion}
-          className="mt-10 text-center font-mono text-xs text-white/20 tracking-widest"
+          className="mt-12 text-center font-mono text-xs text-white/20 tracking-widest"
         >
           &gt;_ Plus de projets en cours de développement...
         </motion.p>
