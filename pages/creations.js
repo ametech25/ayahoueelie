@@ -1,22 +1,16 @@
+// pages/creations.js
 import { visualCreations } from "../data/portfolioData";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
 export default function GalerieCreations() {
     const [filter, setFilter] = useState("Tous");
-    // État pour stocker l'image actuellement sélectionnée (cliquée)
     const [selectedCrea, setSelectedCrea] = useState(null);
 
-    // Sécurité au cas où le tableau met du temps à charger ou s'il y a un décalage
     const list = visualCreations || [];
-
-    // Récupérer toutes les catégories uniques
     const categories = ["Tous", ...new Set(list.map((c) => c.category))];
 
-    // Filtrer les créations
     const filteredCreations = filter === "Tous"
         ? list
         : list.filter((c) => c.category === filter);
@@ -25,7 +19,7 @@ export default function GalerieCreations() {
         <div className="noise min-h-screen bg-[#050505] text-white px-4 py-16 sm:px-6 md:py-24">
             <div className="max-w-6xl mx-auto">
 
-                {/* En-tête de la galerie */}
+                {/* En-tête */}
                 <header className="mb-12 md:mb-16">
                     <Link
                         href="/"
@@ -58,7 +52,7 @@ export default function GalerieCreations() {
                     ))}
                 </div>
 
-                {/* Grille d'affichage des affiches */}
+                {/* Grille */}
                 <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <AnimatePresence mode="popLayout">
                         {filteredCreations.map((crea) => (
@@ -69,17 +63,17 @@ export default function GalerieCreations() {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
                                 key={crea.id}
-                                onClick={() => setSelectedCrea(crea)} // Au clic, on sélectionne l'image
+                                onClick={() => setSelectedCrea(crea)}
                                 className="group relative bg-[#0d0d0d] border border-white/10 overflow-hidden flex flex-col h-full cursor-pointer"
                             >
-                                {/* Zone Image */}
+                                {/* Image — UTILISATION DU CHEMIN DE DONNÉES SÉCURISÉ */}
                                 <div className="relative w-full pt-[100%] bg-[#151515] overflow-hidden">
                                     <img
-                                        src={`${BASE}${crea.image}`}
+                                        src={crea.image} // <-- CORRIGÉ : Sans variable BASE pour éviter les bugs
                                         alt={crea.title}
                                         className="absolute top-0 left-0 w-full h-full object-cover block transition-transform duration-500 group-hover:scale-105"
                                     />
-                                    {/* Overlay au survol indiquant qu'on peut cliquer — FLOU RETIRÉ */}
+                                    {/* Overlay au survol - Sans flou */}
                                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                         <span className="font-mono text-xs text-white bg-[#0052FF] px-3 py-1.5 tracking-wider shadow-lg">
                                             &gt;_ VOIR EN ENTIER
@@ -87,7 +81,7 @@ export default function GalerieCreations() {
                                     </div>
                                 </div>
 
-                                {/* Infos de la carte */}
+                                {/* Infos */}
                                 <div className="p-5 border-t border-white/10 flex-1 flex flex-col justify-between bg-[#050505] relative">
                                     <div>
                                         <span className="font-mono text-[10px] text-[#0052FF] font-bold tracking-widest uppercase block mb-2">
@@ -102,7 +96,6 @@ export default function GalerieCreations() {
                                     </span>
                                 </div>
 
-                                {/* Ligne d'accentuation inférieure */}
                                 <div className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full bg-gradient-to-r from-[#0052FF] to-[#FF073A] transition-all duration-500" />
                             </motion.div>
                         ))}
@@ -111,17 +104,16 @@ export default function GalerieCreations() {
 
             </div>
 
-            {/* ─── VISIONNEUSE PLEIN ÉCRAN (MODAL LIGHTBOX) — FLOU RETIRÉ ─── */}
+            {/* VISIONNEUSE PLEIN ÉCRAN - TOTALEMENT SANS FLOU */}
             <AnimatePresence>
                 {selectedCrea && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => setSelectedCrea(null)} // Ferme la visionneuse si on clique à côté
+                        onClick={() => setSelectedCrea(null)}
                         className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-4 sm:p-6 md:p-10 cursor-zoom-out"
                     >
-                        {/* Bouton de fermeture en haut à droite */}
                         <button
                             onClick={() => setSelectedCrea(null)}
                             className="absolute top-6 right-6 font-mono text-xs text-white/40 hover:text-white border border-white/10 hover:border-white/40 px-3 py-1.5 transition-all duration-300 bg-[#0d0d0d] cursor-pointer"
@@ -129,22 +121,20 @@ export default function GalerieCreations() {
               // FERMER [ESC]
                         </button>
 
-                        {/* Conteneur de l'image entière */}
                         <motion.div
                             initial={{ scale: 0.95, y: 15 }}
                             animate={{ scale: 1, y: 0 }}
                             exit={{ scale: 0.95, y: 15 }}
                             transition={{ type: "spring", damping: 25, stiffness: 180 }}
-                            onClick={(e) => e.stopPropagation()} // Évite de fermer si on clique directement sur l'image
+                            onClick={(e) => e.stopPropagation()}
                             className="relative max-w-full max-h-[80vh] flex flex-col items-center"
                         >
                             <img
-                                src={`${BASE}${selectedCrea.image}`}
+                                src={selectedCrea.image} // <-- CORRIGÉ : Sans variable BASE pour éviter les bugs
                                 alt={selectedCrea.title}
                                 className="max-w-full max-h-[75vh] object-contain border border-white/10 shadow-2xl bg-[#090909]"
                             />
 
-                            {/* Légende sous l'image en plein écran */}
                             <div className="mt-4 text-center">
                                 <span className="font-mono text-[10px] text-[#0052FF] font-bold tracking-widest uppercase block mb-1">
                                     {selectedCrea.category}

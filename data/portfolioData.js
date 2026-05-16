@@ -1,3 +1,5 @@
+// data/portfolioData.js
+
 // ─── SOURCE UNIQUE DE DONNÉES — SYNCHRONISÉE AVEC LE CV ───────────────────────
 export const personalInfo = {
   name: "AYAHOUE MAWUFLIMI ELIE",
@@ -352,22 +354,22 @@ export const footerSocialLinks = [
   },
 ];
 
-// ─── RÉALISATIONS VISUELLES (Pour la page galerie créations) ─────────────────
+// ─── RÉALISATIONS VISUELLES (Extensions synchronisées en .webp) ─────────────────
 export const visualCreations = [
-  { id: "CREA-001", title: "TAG de photo", image: "/images/affiches/1.jpg", category: "Institutionnel" },
-  { id: "CREA-002", title: "Offre Service Impression", image: "/images/affiches/2.jpg", category: "Commercial" },
-  { id: "CREA-003", title: "Theme événementielles", image: "/images/affiches/3.jpg", category: "Institutionnel" },
-  { id: "CREA-004", title: "Affiche de priere", image: "/images/affiches/4.jpg", category: "Événementiel" },
-  { id: "CREA-005", title: "Teasing Jour J-02", image: "/images/affiches/5.jpg", category: "Teasing" },
-  { id: "CREA-006", title: "Affiche Évangélisation", image: "/images/affiches/6.jpg", category: "Événementiel" },
-  { id: "CREA-007", title: "Dépliant Journée carrière Face A", image: "/images/affiches/7.jpg", category: "Édition" },
-  { id: "CREA-008", title: "Dépliant Journée carrière Face B", image: "/images/affiches/8.jpg", category: "Édition" },
-  { id: "CREA-009", title: "Affiche d'Eglise 'Allons en Galilée'", image: "/images/affiches/9.jpg", category: "Événementiel" },
-  { id: "CREA-010", title: "Au revoir de nos parrains", image: "/images/affiches/10.jpg", category: "Événementiel" },
-  { id: "CREA-011", title: "Teasing Jour J-31", image: "/images/affiches/11.jpg", category: "Teasing" },
-  { id: "CREA-012", title: "Affiche La Nuit de l'Apothéose", image: "/images/affiches/12.jpg", category: "Événementiel" },
-  { id: "CREA-013", title: "Affiche Panel Professionnel", image: "/images/affiches/13.jpg", category: "Conférence" },
-  { id: "CREA-014", title: "Affiche de prière GEEAD", image: "/images/affiches/14.jpg", category: "Événementiel" },
-  { id: "CREA-015", title: "Affiche Célébration Pâques", image: "/images/affiches/15.jpg", category: "Événementiel" },
-  { id: "CREA-016", title: "Formation Entreprendre dans l'Agriculture", image: "/images/affiches/16.jpg", category: "Formation" },
+  { id: "CREA-001", title: "TAG de photo", image: "/images/affiches/1.webp", category: "Institutionnel" },
+  { id: "CREA-002", title: "Offre Service Impression", image: "/images/affiches/2.webp", category: "Commercial" },
+  { id: "CREA-003", title: "Theme événementielles", image: "/images/affiches/3.webp", category: "Institutionnel" },
+  { id: "CREA-004", title: "Affiche de priere", image: "/images/affiches/4.webp", category: "Événementiel" },
+  { id: "CREA-005", title: "Teasing Jour J-02", image: "/images/affiches/5.webp", category: "Teasing" },
+  { id: "CREA-006", title: "Affiche Évangélisation", image: "/images/affiches/6.webp", category: "Événementiel" },
+  { id: "CREA-007", title: "Dépliant Journée carrière Face A", image: "/images/affiches/7.webp", category: "Édition" },
+  { id: "CREA-008", title: "Dépliant Journée carrière Face B", image: "/images/affiches/8.webp", category: "Édition" },
+  { id: "CREA-009", title: "Affiche d'Eglise 'Allons en Galilée'", image: "/images/affiches/9.webp", category: "Événementiel" },
+  { id: "CREA-010", title: "Au revoir de nos parrains", image: "/images/affiches/10.webp", category: "Événementiel" },
+  { id: "CREA-011", title: "Teasing Jour J-31", image: "/images/affiches/11.webp", category: "Teasing" },
+  { id: "CREA-012", title: "Affiche La Nuit de l'Apothéose", image: "/images/affiches/12.webp", category: "Événementiel" },
+  { id: "CREA-013", title: "Affiche Panel Professionnel", image: "/images/affiches/13.webp", category: "Conférence" },
+  { id: "CREA-014", title: "Affiche de prière GEEAD", image: "/images/affiches/14.webp", category: "Événementiel" },
+  { id: "CREA-015", title: "Affiche Célébration Pâques", image: "/images/affiches/15.webp", category: "Événementiel" },
+  { id: "CREA-016", title: "Formation Entreprendre dans l'Agriculture", image: "/images/affiches/16.webp", category: "Formation" },
 ];

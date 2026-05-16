@@ -5,9 +5,6 @@ import { projects } from "../data/portfolioData";
 import { useRevealMotion } from "@/hooks/useRevealMotion";
 import Link from "next/link";
 
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
-// Animated card component
 function ProjectCard({ project, index, inView }) {
   const [hovered, setHovered] = useState(false);
   const hasLink = Boolean(project.link);
@@ -43,7 +40,6 @@ function ProjectCard({ project, index, inView }) {
 
       {/* Content */}
       <div className="p-6 md:p-8">
-        {/* Year & highlight */}
         <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
           <span className="font-mono text-xs text-white/30">{project.year}</span>
           <div className="flex items-center gap-2 flex-wrap justify-end">
@@ -58,7 +54,6 @@ function ProjectCard({ project, index, inView }) {
           </div>
         </div>
 
-        {/* Title */}
         <h3 className="font-michroma text-xl md:text-2xl text-white mb-2 group-hover:text-[#0052FF] transition-colors duration-300">
           {project.title}
         </h3>
@@ -66,12 +61,10 @@ function ProjectCard({ project, index, inView }) {
           {project.subtitle}
         </p>
 
-        {/* Description */}
         <p className="text-white/50 text-sm leading-relaxed mb-6 group-hover:text-white/70 transition-colors duration-300">
           {project.desc}
         </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-6">
           {project.tags.map((tag) => (
             <span
@@ -83,7 +76,6 @@ function ProjectCard({ project, index, inView }) {
           ))}
         </div>
 
-        {/* CTA */}
         {hasLink && (
           <motion.div
             animate={{ x: hovered ? 4 : 0 }}
@@ -96,7 +88,6 @@ function ProjectCard({ project, index, inView }) {
         )}
       </div>
 
-      {/* Hover glow */}
       <AnimatePresence>
         {hovered && (
           <motion.div
@@ -111,7 +102,6 @@ function ProjectCard({ project, index, inView }) {
         )}
       </AnimatePresence>
 
-      {/* Bottom accent */}
       <div className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full bg-gradient-to-r from-[#0052FF] to-[#FF073A] transition-all duration-500" />
     </motion.div>
   );
@@ -136,11 +126,9 @@ export default function Projects() {
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const { visible: _h, ...headerMotion } = useRevealMotion(inView, { delay: 0 });
   const { visible: _f, ...footerMotion } = useRevealMotion(inView, { delay: 0.45, y: 12 });
-  
-  // État local pour gérer le hover de la carte personnalisée
+
   const [galerieHovered, setGalerieHovered] = useState(false);
 
-  // Configuration de l'animation pour la carte galerie
   const { visible: _g, ...galerieMotion } = useRevealMotion(inView, {
     delay: 0.1 + projects.length * 0.12,
     x: projects.length % 2 === 0 ? -28 : 28,
@@ -178,7 +166,7 @@ export default function Projects() {
             <ProjectCard key={project.id} project={project} index={i} inView={inView} />
           ))}
 
-          {/* ─── TROISIÈME CARTE FIXE : LIEN VERS LA GALERIE VISUELLE ─── */}
+          {/* Troisième carte avec fond d'écran WEBP direct */}
           <Link href="/creations" className="block h-full">
             <motion.div
               {...galerieMotion}
@@ -186,16 +174,13 @@ export default function Projects() {
               onMouseLeave={() => setGalerieHovered(false)}
               className="group relative border border-white/10 overflow-hidden bg-[#050505] h-full cursor-pointer flex flex-col justify-between"
             >
-              {/* Image de fond avec opacité réduite */}
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center opacity-[0.12] group-hover:opacity-[0.20] transition-opacity duration-500 pointer-events-none mix-blend-luminosity"
-                style={{ backgroundImage: `url('${BASE}/images/affiches/5.jpg')` }} // <-- Ton affiche Teasing en fond !
+                style={{ backgroundImage: "url('/images/affiches/5.webp')" }} // <-- MODIFIÉ ICI EN CHEMIN DIRECT
               />
-              {/* Dégradé pour assombrir le bas et garantir la lisibilité */}
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/40 to-[#050505] pointer-events-none" />
 
               <div className="relative z-10">
-                {/* Top bar de la carte */}
                 <div className="flex items-center justify-between px-6 py-3 border-b border-white/10 bg-[#050505]/80 backdrop-blur-sm">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-[#0052FF]" />
@@ -208,7 +193,6 @@ export default function Projects() {
                   </span>
                 </div>
 
-                {/* Contenu principal */}
                 <div className="p-6 md:p-8">
                   <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
                     <span className="font-mono text-xs text-white/30">Continu</span>
@@ -235,7 +219,6 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Tags et bouton d'action calés en bas */}
               <div className="p-6 md:p-8 pt-0 relative z-10 mt-auto">
                 <div className="flex flex-wrap gap-2 mb-6">
                   {["Photoshop", "Illustrator", "Figma", "Canva"].map((tag) => (
@@ -258,7 +241,6 @@ export default function Projects() {
                 </motion.div>
               </div>
 
-              {/* Hover glow effet */}
               <AnimatePresence>
                 {galerieHovered && (
                   <motion.div
@@ -273,15 +255,12 @@ export default function Projects() {
                 )}
               </AnimatePresence>
 
-              {/* Ligne d'accent inférieure */}
               <div className="absolute bottom-0 left-0 h-px w-0 group-hover:w-full bg-gradient-to-r from-[#0052FF] to-[#FF073A] transition-all duration-500 z-20" />
             </motion.div>
           </Link>
-          {/* ───────────────────────────────────────────────────────────── */}
 
         </div>
 
-        {/* Bottom note */}
         <motion.p
           {...footerMotion}
           className="mt-12 text-center font-mono text-xs text-white/20 tracking-widest"
