@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev -p 3000",
+    "build": "next build && node scripts/postbuild-gh-pages.js",
     "start": "next start",
     "lint": "next lint"
   },
+  "homepage": "https://ametech25.github.io/ayahoueelie",
   "dependencies": {
     "framer-motion": "^11.2.10",
     "next": "^14.2.35",

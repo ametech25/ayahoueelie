@@ -176,3 +176,22 @@ body {
   background: rgba(0, 82, 255, 0.3);
   color: #ffffff;
 }
+
+/* Chaînes WhatsApp — PNG + teinte blanche comme text-white/55 */
+.social-wa-channel-icon {
+  display: block;
+  width: 1.3rem;
+  height: 1.3rem;
+  min-width: 1.3rem;
+  min-height: 1.3rem;
+  flex-shrink: 0;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(1);
+  opacity: 0.55;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.group:hover .social-wa-channel-icon {
+  filter: none;
+  opacity: 1;
+}

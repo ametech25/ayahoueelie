@@ -1,16 +1,19 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production';
+// basePath uniquement au build (GitHub Pages), pas en `npm run dev`
+const isPagesBuild = process.env.npm_lifecycle_event === "build";
+const basePath = isPagesBuild ? "/ayahoueelie" : "";
 
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
-  basePath: isProd ? '/ayahoueelie' : '',
-  assetPrefix: isProd ? '/ayahoueelie/' : '',
+  output: "export",
+  basePath,
+  assetPrefix: isPagesBuild ? "/ayahoueelie/" : undefined,
+  trailingSlash: isPagesBuild,
   images: {
     unoptimized: true,
   },
   env: {
-    NEXT_PUBLIC_BASE_PATH: isProd ? '/ayahoueelie' : '',
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
 };
 
