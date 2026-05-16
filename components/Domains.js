@@ -2,9 +2,16 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { domains as domainsData } from "../data/portfolioData";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const domainIcons = {
   "01": (
+    <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
+      <path d="M24 4L8 10V24C8 33.6 15.2 42.4 24 44C32.8 42.4 40 33.6 40 24V10L24 4Z" stroke="#FF073A" strokeWidth="2" fill="none" />
+      <path d="M16 24L21 29L32 18" stroke="#0052FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  "02": (
     <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
       <circle cx="24" cy="24" r="8" stroke="#0052FF" strokeWidth="2" />
       <circle cx="24" cy="8" r="3" stroke="#FF073A" strokeWidth="2" />
@@ -17,7 +24,7 @@ const domainIcons = {
       <line x1="32" y1="24" x2="37" y2="24" stroke="#0052FF" strokeWidth="1.5" />
     </svg>
   ),
-  "02": (
+  "03": (
     <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
       <rect x="4" y="8" width="40" height="32" rx="2" stroke="#006837" strokeWidth="2" />
       <line x1="4" y1="18" x2="44" y2="18" stroke="#006837" strokeWidth="1.5" />
@@ -27,12 +34,6 @@ const domainIcons = {
       <polyline points="14,26 10,30 14,34" stroke="#006837" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <polyline points="34,26 38,30 34,34" stroke="#006837" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <line x1="20" y1="34" x2="28" y2="26" stroke="#0052FF" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  ),
-  "03": (
-    <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10">
-      <path d="M24 4L8 10V24C8 33.6 15.2 42.4 24 44C32.8 42.4 40 33.6 40 24V10L24 4Z" stroke="#0052FF" strokeWidth="2" fill="none" />
-      <path d="M16 24L21 29L32 18" stroke="#FF073A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
   "04": (
@@ -49,7 +50,9 @@ const domainIcons = {
 
 export default function Domains() {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldAnimate = isMobile || inView;
 
   return (
     <section id="domains" className="relative py-32 overflow-hidden">
@@ -63,7 +66,7 @@ export default function Domains() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
@@ -83,8 +86,8 @@ export default function Domains() {
             <motion.div
               key={domain.id}
               initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.12 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: isMobile ? 0 : i * 0.12 }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className="group relative border border-white/10 p-8 cursor-default overflow-hidden bg-[#050505] card-line"
             >

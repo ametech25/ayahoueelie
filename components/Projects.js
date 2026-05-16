@@ -2,17 +2,19 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { projects } from "../data/portfolioData";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 // Animated card component
-function ProjectCard({ project, index, inView }) {
+function ProjectCard({ project, index, inView, isMobile }) {
   const [hovered, setHovered] = useState(false);
   const hasLink = Boolean(project.link);
+  const shouldAnimate = isMobile || inView;
 
   const card = (
     <motion.div
       initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.15 }}
+      animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.7, delay: isMobile ? 0 : index * 0.15 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`group relative border border-white/10 overflow-hidden bg-[#050505] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
@@ -125,7 +127,9 @@ function ProjectCard({ project, index, inView }) {
 
 export default function Projects() {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldAnimate = isMobile || inView;
 
   return (
     <section id="projects" className="relative py-32 overflow-hidden">
@@ -137,7 +141,7 @@ export default function Projects() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
@@ -159,15 +163,15 @@ export default function Projects() {
         {/* Projects grid */}
         <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} inView={inView} />
+            <ProjectCard key={project.id} project={project} index={i} inView={inView} isMobile={isMobile} />
           ))}
         </div>
 
         {/* Bottom note */}
         <motion.p
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          animate={shouldAnimate ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: isMobile ? 0 : 0.5 }}
           className="mt-10 text-center font-mono text-xs text-white/20 tracking-widest"
         >
           &gt;_ Plus de projets en cours de développement...

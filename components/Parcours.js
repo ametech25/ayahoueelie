@@ -2,16 +2,18 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { education, experience } from "../data/portfolioData";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
-function TimelineItem({ item, index, inView, side }) {
+function TimelineItem({ item, index, inView, side, isMobile }) {
   const isEdu = side === "edu";
   const accentColor = item.color || (isEdu ? "#006837" : item.badgeColor || "#0052FF");
+  const shouldAnimate = isMobile || inView;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.12 }}
+      animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.55, delay: isMobile ? 0 : index * 0.12 }}
       className="relative pl-8 pb-8 last:pb-0 group"
     >
       {/* Vertical line */}
@@ -98,7 +100,9 @@ function TimelineItem({ item, index, inView, side }) {
 
 export default function Parcours() {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const shouldAnimate = isMobile || inView;
 
   return (
     <section id="parcours" className="relative py-32 overflow-hidden">
@@ -114,7 +118,7 @@ export default function Parcours() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
@@ -135,8 +139,8 @@ export default function Parcours() {
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : 0.1 }}
               className="flex items-center gap-3 mb-8"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#006837]" />
@@ -145,7 +149,7 @@ export default function Parcours() {
             </motion.div>
 
             {education.map((item, i) => (
-              <TimelineItem key={i} item={item} index={i} inView={inView} side="edu" />
+              <TimelineItem key={item.period} item={item} index={i} inView={inView} side="edu" isMobile={isMobile} />
             ))}
           </div>
 
@@ -163,7 +167,7 @@ export default function Parcours() {
             </motion.div>
 
             {experience.map((item, i) => (
-              <TimelineItem key={i} item={item} index={i} inView={inView} side="exp" />
+              <TimelineItem key={item.id} item={item} index={i} inView={inView} side="exp" isMobile={isMobile} />
             ))}
           </div>
         </div>

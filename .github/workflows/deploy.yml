@@ -33,6 +33,7 @@ jobs:
       - name: Build
         env:
           NODE_ENV: production
+          npm_lifecycle_event: build
         run: npm run build
 
       - name: Setup Pages

@@ -2,13 +2,15 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { skillCategories, allBadges } from "../data/portfolioData";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
-function SkillBar({ name, level, color, index, inView }) {
+function SkillBar({ name, level, color, index, inView, isMobile }) {
+  const shouldAnimate = isMobile || inView;
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+      animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.5, delay: isMobile ? 0 : index * 0.08 }}
       className="group"
     >
       <div className="flex justify-between items-center mb-1.5">
@@ -22,8 +24,8 @@ function SkillBar({ name, level, color, index, inView }) {
       <div className="h-px bg-white/10 overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : {}}
-          transition={{ duration: 1.2, delay: 0.3 + index * 0.08, ease: "easeOut" }}
+          animate={shouldAnimate ? { width: `${level}%` } : {}}
+          transition={{ duration: 1.2, delay: isMobile ? 0 : 0.3 + index * 0.08, ease: "easeOut" }}
           style={{ background: color }}
           className="h-full relative"
         >
@@ -37,7 +39,9 @@ function SkillBar({ name, level, color, index, inView }) {
 
 export default function Skills() {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldAnimate = isMobile || inView;
 
   return (
     <section id="skills" className="relative py-32 overflow-hidden">
@@ -49,7 +53,7 @@ export default function Skills() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
@@ -69,8 +73,8 @@ export default function Skills() {
             <motion.div
               key={cat.category}
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: catIndex * 0.15 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: isMobile ? 0 : catIndex * 0.15 }}
               className="relative border border-white/10 p-6"
             >
               {/* Corner accent */}
@@ -97,6 +101,7 @@ export default function Skills() {
                     color={cat.color}
                     index={i}
                     inView={inView}
+                    isMobile={isMobile}
                   />
                 ))}
               </div>
@@ -107,8 +112,8 @@ export default function Skills() {
         {/* Badges section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: isMobile ? 0 : 0.5 }}
         >
           <div className="flex items-center gap-4 mb-6">
             <span className="font-mono text-xs text-white/30 tracking-widest">TECHNOLOGIES</span>
@@ -120,8 +125,8 @@ export default function Skills() {
               <motion.span
                 key={badge}
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.3, delay: 0.6 + i * 0.04 }}
+                animate={shouldAnimate ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.3, delay: isMobile ? 0 : 0.6 + i * 0.04 }}
                 whileHover={{ scale: 1.1, borderColor: "rgba(0,82,255,0.5)" }}
                 className="font-mono text-xs text-white/50 border border-white/10 px-3 py-1.5 cursor-default transition-colors hover:text-[#0052FF]"
               >

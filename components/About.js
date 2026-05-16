@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { personalInfo } from "../data/portfolioData";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 function Stat({ value, label }) {
   const ref = useRef(null);
@@ -22,7 +23,8 @@ function Stat({ value, label }) {
   );
 }
 
-function SkillBar({ label, pct, inView, delay }) {
+function SkillBar({ label, pct, inView, delay, isMobile }) {
+  const shouldAnimate = isMobile || inView;
   return (
     <div>
       <div className="flex justify-between font-mono text-xs text-white/40 mb-1.5">
@@ -32,8 +34,8 @@ function SkillBar({ label, pct, inView, delay }) {
       <div className="h-[3px] bg-white/10 rounded-full overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
-          animate={inView ? { width: `${pct}%` } : {}}
-          transition={{ duration: 1, delay, ease: "easeOut" }}
+          animate={shouldAnimate ? { width: `${pct}%` } : {}}
+          transition={{ duration: 1, delay: isMobile ? 0 : delay, ease: "easeOut" }}
           className="h-full rounded-full bg-gradient-to-r from-[#0052FF] to-[#FF073A]"
         />
       </div>
@@ -43,7 +45,9 @@ function SkillBar({ label, pct, inView, delay }) {
 
 export default function About() {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldAnimate = isMobile || inView;
 
   return (
     <section id="about" className="relative py-32 overflow-hidden">
@@ -56,7 +60,7 @@ export default function About() {
           {/* Colonne gauche — carte profil */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
             className="relative"
           >
@@ -103,6 +107,7 @@ export default function About() {
                     pct={item.pct}
                     inView={inView}
                     delay={0.4 + i * 0.1}
+                    isMobile={isMobile}
                   />
                 ))}
               </div>
@@ -124,8 +129,8 @@ export default function About() {
           <div className="lg:pl-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.15 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : 0.15 }}
               className="flex items-center gap-3 mb-6"
             >
               <span className="font-mono text-xs text-[#0052FF] tracking-widest">// 01</span>
@@ -135,8 +140,8 @@ export default function About() {
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.25 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : 0.25 }}
               className="font-michroma text-3xl md:text-4xl lg:text-[2.75rem] text-white mb-6 leading-tight"
             >
               Construire l&apos;avenir
@@ -146,8 +151,8 @@ export default function About() {
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.35 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : 0.35 }}
               className="text-white/60 leading-relaxed mb-6 text-sm sm:text-base max-w-xl"
               dangerouslySetInnerHTML={{
                 __html: personalInfo.description.replace(
@@ -159,8 +164,8 @@ export default function About() {
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.45 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : 0.45 }}
               className="text-white/40 leading-relaxed mb-10 text-sm font-mono border-l-2 border-[#0052FF]/30 pl-4"
             >
               {personalInfo.motto}
@@ -168,8 +173,8 @@ export default function About() {
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.55 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : 0.55 }}
               className="grid grid-cols-3 gap-4 sm:gap-6 pt-8 border-t border-white/10"
             >
               {personalInfo.stats.map((stat) => (

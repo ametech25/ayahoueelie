@@ -4,7 +4,7 @@ import { assetPath } from "@/lib/sitePath";
 export const personalInfo = {
   name: "AYAHOUE MAWUFLIMI ELIE",
   brand: "AYAHOUE MAWUFLIMI ELIE",
-  profileImage: assetPath("/images/profil.jpg"),
+  profileImage: assetPath("/images/profil.svg"),
   title: "AYAHOUE MAWUFLIMI ELIE",
   tagline: "Étudiant Cybersécurité & IA | ESATIC à Abidjan",
   description:
