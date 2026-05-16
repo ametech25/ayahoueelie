@@ -2,6 +2,8 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 // Typewriter hook
 function useTypewriter(text, speed = 80, delay = 0) {
   const [displayed, setDisplayed] = useState("");
@@ -169,7 +171,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="mb-6"
         >
-          <img src="/images/icone.svg" alt="AMÉ TECH Logo" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
+          <img src={`${basePath}/images/icone.svg`} alt="AMÉ TECH Logo" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
         </motion.div>
 
         {/* Slogan */}

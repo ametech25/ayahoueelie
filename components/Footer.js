@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { footerSocialLinks } from "../data/portfolioData";
 import { SocialLinksRow } from "./SocialIcons";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -20,7 +22,7 @@ export default function Footer() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             className="flex flex-col items-center justify-center gap-2"
-          >
+          >{`${basePath}`}
             {/* Mini logo */}
             <img src="/images/logo.svg" alt="Logo" className="w-50 h-20" />
             <p className="font-mono text-xs text-white/20 tracking-wider text-center">

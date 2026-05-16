@@ -1,9 +1,10 @@
 // ─── SOURCE UNIQUE DE DONNÉES — SYNCHRONISÉE AVEC LE CV ───────────────────────
+import { assetPath } from "@/lib/sitePath";
 
 export const personalInfo = {
   name: "AYAHOUE MAWUFLIMI ELIE",
   brand: "AYAHOUE MAWUFLIMI ELIE",
-  profileImage: "/images/profil.jpg",
+  profileImage: assetPath("/images/profil.jpg"),
   title: "AYAHOUE MAWUFLIMI ELIE",
   tagline: "Étudiant Cybersécurité & IA | ESATIC à Abidjan",
   description:
