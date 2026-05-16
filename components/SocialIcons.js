@@ -1,4 +1,18 @@
-import { assetPath } from "@/lib/sitePath";
+import { useAssetPath } from "@/hooks/useAssetPath";
+
+function WhatsappChannelIcon() {
+  const src = useAssetPath("/images/whatsapp-channels.png");
+  return (
+    <img
+      src={src}
+      alt=""
+      width={21}
+      height={21}
+      className="social-wa-channel-icon"
+      aria-hidden="true"
+    />
+  );
+}
 
 const icons = {
   facebook: (
@@ -26,16 +40,7 @@ const icons = {
 
 export function SocialIcon({ name, className = "w-5 h-5" }) {
   if (name === "whatsapp") {
-    return (
-      <img
-        src={assetPath("/images/whatsapp-channels.png")}
-        alt=""
-        width={21}
-        height={21}
-        className="social-wa-channel-icon"
-        aria-hidden="true"
-      />
-    );
+    return <WhatsappChannelIcon />;
   }
 
   const icon = icons[name];

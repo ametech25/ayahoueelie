@@ -195,3 +195,87 @@ body {
   filter: none;
   opacity: 1;
 }
+
+/* Mobile : fond animé + entrée des sections */
+.mobile-ambient-layer {
+  display: none;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-ambient-layer {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 82, 255, 0.12), transparent 55%),
+      radial-gradient(ellipse 70% 45% at 80% 70%, rgba(255, 7, 58, 0.08), transparent 50%);
+    animation: ambientShift 12s ease-in-out infinite alternate;
+  }
+
+  .pointer-glow {
+    opacity: 1;
+  }
+}
+
+/* Animations auto mobile (CSS — fonctionne dès le 1er affichage) */
+html.is-mobile .mobile-stagger-root > div,
+html.is-mobile .mobile-stagger-root > section {
+  animation: mobileFadeUp 0.75s ease-out both;
+}
+
+html.is-mobile .mobile-stagger-root > div:nth-child(1),
+html.is-mobile .mobile-stagger-root > section:nth-child(1) {
+  animation-delay: 0.05s;
+}
+html.is-mobile .mobile-stagger-root > div:nth-child(2),
+html.is-mobile .mobile-stagger-root > section:nth-child(2) {
+  animation-delay: 0.18s;
+}
+html.is-mobile .mobile-stagger-root > div:nth-child(3),
+html.is-mobile .mobile-stagger-root > section:nth-child(3) {
+  animation-delay: 0.31s;
+}
+html.is-mobile .mobile-stagger-root > div:nth-child(4),
+html.is-mobile .mobile-stagger-root > section:nth-child(4) {
+  animation-delay: 0.44s;
+}
+html.is-mobile .mobile-stagger-root > div:nth-child(5),
+html.is-mobile .mobile-stagger-root > section:nth-child(5) {
+  animation-delay: 0.57s;
+}
+html.is-mobile .mobile-stagger-root > div:nth-child(6),
+html.is-mobile .mobile-stagger-root > section:nth-child(6) {
+  animation-delay: 0.7s;
+}
+
+html.is-mobile footer {
+  animation: mobileFadeUp 0.75s ease-out 0.85s both;
+}
+
+@keyframes mobileFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ambientShift {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.08) translate(-2%, 2%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-ambient-layer,
+  html.is-mobile .mobile-stagger-root > div,
+  html.is-mobile .mobile-stagger-root > section,
+  html.is-mobile footer {
+    animation: none !important;
+  }
+}

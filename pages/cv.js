@@ -9,7 +9,7 @@ export default function CV() {
       <Head>
         <title>CV | AYAHOUE MAWUFLIMI ELIE - AMÉ TECH</title>
         <meta name="description" content="CV professionnel de AYAHOUE MAWUFLIMI ELIE - Étudiant Cybersécurité & IA à l'ESATIC, Abidjan." />
-        <link rel="icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/images/icone.svg`} type="image/svg+xml" />
+        <link rel="icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/images/logo.svg`} type="image/svg+xml" />
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Michroma&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
           * { margin: 0; padding: 0; box-sizing: border-box; }

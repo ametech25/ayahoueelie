@@ -157,8 +157,8 @@ export default function Parcours() {
           <div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : 0.1 }}
               className="flex items-center gap-3 mb-8"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#0052FF]" />

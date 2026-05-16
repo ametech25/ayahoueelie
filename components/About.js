@@ -2,16 +2,18 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { personalInfo } from "../data/portfolioData";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useAssetPath } from "@/hooks/useAssetPath";
 
-function Stat({ value, label }) {
+function Stat({ value, label, isMobile }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
+  const shouldAnimate = isMobile || inView;
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5 }}
       className="text-center"
     >
@@ -46,6 +48,7 @@ function SkillBar({ label, pct, inView, delay, isMobile }) {
 export default function About() {
   const ref = useRef(null);
   const isMobile = useIsMobile();
+  const profileSrc = useAssetPath(personalInfo.profileImage);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const shouldAnimate = isMobile || inView;
 
@@ -79,7 +82,7 @@ export default function About() {
                 />
                 <div className="relative w-full h-full rounded-full border-2 border-[#0052FF]/40 bg-[#050505] overflow-hidden">
                   <img
-                    src={personalInfo.profileImage}
+                    src={profileSrc}
                     alt={`Photo de profil — ${personalInfo.name}`}
                     className="w-full h-full object-cover scale-[1.35]"
                     style={{ objectPosition: "50% 8%" }}
@@ -178,7 +181,7 @@ export default function About() {
               className="grid grid-cols-3 gap-4 sm:gap-6 pt-8 border-t border-white/10"
             >
               {personalInfo.stats.map((stat) => (
-                <Stat key={stat.label} value={stat.value} label={stat.label} />
+                <Stat key={stat.label} value={stat.value} label={stat.label} isMobile={isMobile} />
               ))}
             </motion.div>
           </div>

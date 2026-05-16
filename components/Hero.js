@@ -1,8 +1,8 @@
 // components/Hero.js
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import SiteLogo from "@/components/SiteLogo";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 // Typewriter hook
 function useTypewriter(text, speed = 80, delay = 0) {
@@ -116,12 +116,16 @@ export default function Hero() {
   const nameText = useTypewriter("AYAHOUE MAWUFLIMI ELIE", 60, 1200);
   const [showDesc, setShowDesc] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    const t1 = setTimeout(() => setShowDesc(true), 2800);
-    const t2 = setTimeout(() => setShowBtn(true), 3400);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
+    const t1 = setTimeout(() => setShowDesc(true), isMobile ? 1600 : 2800);
+    const t2 = setTimeout(() => setShowBtn(true), isMobile ? 2000 : 3400);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [isMobile]);
 
   const handleScroll = () => {
     const target = document.getElementById("projects");
@@ -166,12 +170,22 @@ export default function Hero() {
 
         {/* Small logo above slogan */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
+          initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          animate={{
+            opacity: 1,
+            y: isMobile ? [0, -8, 0] : 0,
+            scale: 1,
+          }}
+          transition={{
+            opacity: { duration: 0.7, delay: 0.35 },
+            y: isMobile
+              ? { duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.35 }
+              : { duration: 0.7, delay: 0.35 },
+            scale: { duration: 0.7, delay: 0.35 },
+          }}
           className="mb-6"
         >
-          <img src={`${basePath}/images/icone.svg`} alt="AMÉ TECH Logo" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
+          <SiteLogo className="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain" alt="AMÉ TECH Logo" />
         </motion.div>
 
         {/* Slogan */}

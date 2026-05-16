@@ -14,7 +14,7 @@ function ProjectCard({ project, index, inView, isMobile }) {
     <motion.div
       initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
       animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.7, delay: isMobile ? 0 : index * 0.15 }}
+      transition={{ duration: 0.7, delay: isMobile ? index * 0.12 : index * 0.15 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`group relative border border-white/10 overflow-hidden bg-[#050505] ${hasLink ? "cursor-pointer" : "cursor-default"}`}

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import SiteLogo from "@/components/SiteLogo";
 
 const navLinks = [
   { label: "Accueil", href: "/#hero" },
@@ -81,7 +82,9 @@ export default function Navbar() {
             }}
             className="flex items-center gap-3 group"
           >
-            <motion.img whileHover={{ scale: 1.05 }} src="/images/logo.svg" alt="AMÉ TECH" className="w-12 h-12" />
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <SiteLogo className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+            </motion.div>
           </Link>
 
           {/* Desktop Nav */}

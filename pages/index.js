@@ -8,6 +8,7 @@ import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import MobilePage from "@/components/MobilePage";
 
 export default function Home() {
   return (
@@ -27,15 +28,15 @@ export default function Home() {
       {/* Sticky Navbar */}
       <Navbar />
 
-      {/* Page Sections */}
-      <main>
+      {/* Page Sections — animations auto sur mobile */}
+      <MobilePage>
         <Hero />
         <About />
         <Domains />
         <Projects />
         <Skills />
         <Contact />
-      </main>
+      </MobilePage>
 
       <Footer />
     </>

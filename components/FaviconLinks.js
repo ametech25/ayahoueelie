@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { assetPath } from "@/lib/sitePath";
+import { logoPath } from "@/lib/sitePath";
 
 export default function FaviconLinks() {
-  const icon = assetPath("/images/icone.svg");
+  const icon = logoPath();
 
   return (
     <Head>

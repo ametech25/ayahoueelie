@@ -87,7 +87,7 @@ export default function Domains() {
               key={domain.id}
               initial={{ opacity: 0, y: 40 }}
               animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: isMobile ? 0 : i * 0.12 }}
+              transition={{ duration: 0.6, delay: isMobile ? i * 0.1 : i * 0.12 }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className="group relative border border-white/10 p-8 cursor-default overflow-hidden bg-[#050505] card-line"
             >

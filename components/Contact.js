@@ -9,10 +9,13 @@ import {
   socialLinks,
 } from "../data/portfolioData";
 import { SocialLinksRow } from "./SocialIcons";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function Contact() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const inView = useInView(ref, { once: true, margin: isMobile ? "-40px" : "-100px" });
+  const shouldAnimate = isMobile || inView;
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [showSendHelp, setShowSendHelp] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -55,7 +58,7 @@ export default function Contact() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
@@ -77,7 +80,7 @@ export default function Contact() {
           {/* Left: Info */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7 }}
           >
             {/* Email card */}
@@ -130,7 +133,7 @@ export default function Contact() {
           {/* Right: Form */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7 }}
           >
             <motion.div

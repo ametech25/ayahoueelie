@@ -10,7 +10,7 @@ function SkillBar({ name, level, color, index, inView, isMobile }) {
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, delay: isMobile ? 0 : index * 0.08 }}
+      transition={{ duration: 0.5, delay: isMobile ? index * 0.07 : index * 0.08 }}
       className="group"
     >
       <div className="flex justify-between items-center mb-1.5">
@@ -25,7 +25,7 @@ function SkillBar({ name, level, color, index, inView, isMobile }) {
         <motion.div
           initial={{ width: 0 }}
           animate={shouldAnimate ? { width: `${level}%` } : {}}
-          transition={{ duration: 1.2, delay: isMobile ? 0 : 0.3 + index * 0.08, ease: "easeOut" }}
+          transition={{ duration: 1.2, delay: isMobile ? 0.2 + index * 0.07 : 0.3 + index * 0.08, ease: "easeOut" }}
           style={{ background: color }}
           className="h-full relative"
         >

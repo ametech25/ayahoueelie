@@ -1,13 +1,13 @@
 // pages/_app.js
 import "@/styles/globals.css";
-import MouseTracker from "@/components/MouseTracker";
+import PointerGlow from "@/components/PointerGlow";
 import FaviconLinks from "@/components/FaviconLinks";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <FaviconLinks />
-      <MouseTracker />
+      <PointerGlow />
       <Component {...pageProps} />
     </>
   );
