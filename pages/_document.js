@@ -1,4 +1,3 @@
-// pages/_document.js
 import { Html, Head, Main, NextScript } from "next/document";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -12,9 +11,10 @@ export default function Document() {
             __html: `(function(){try{if(window.matchMedia('(max-width:767px)').matches)document.documentElement.classList.add('is-mobile')}catch(e){}})();`,
           }}
         />
-        <link rel="icon" href={`${BASE}/images/logo.svg`} type="image/svg+xml" />
-        <link rel="shortcut icon" href={`${BASE}/images/logo.svg`} />
-        <link rel="apple-touch-icon" href={`${BASE}/images/logo.svg`} />
+        {/* Favicons mis à jour avec favicon.svg */}
+        <link rel="icon" href={`${BASE}/images/favicon.svg`} type="image/svg+xml" />
+        <link rel="shortcut icon" href={`${BASE}/images/favicon.svg`} />
+        <link rel="apple-touch-icon" href={`${BASE}/images/favicon.svg`} />
 
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
