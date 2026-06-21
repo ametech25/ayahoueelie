@@ -371,4 +371,5 @@ export const visualCreations = [
   { id: "CREA-013", title: "Affiche Panel Professionnel", image: "/images/affiches/13.webp", category: "Conférence" },
   { id: "CREA-014", title: "Affiche de prière GEEAD", image: "/images/affiches/14.webp", category: "Événementiel" },
   { id: "CREA-015", title: "Affiche Célébration Pâques", image: "/images/affiches/15.webp", category: "Événementiel" },
+  { id: "CREA-016", title: "Formation Entreprendre dans l'Agriculture", image: "/images/affiches/16.webp", category: "Formation" },
 ];
