@@ -393,4 +393,5 @@ export const visualCreations = [
   { id: "CREA-035", title: "AFFICHE OFFICIELLE de La Nuit l'Apothéose 2026 - SHIFT", image: "/images/affiches/35.webp", category: "Événementiel" },
   { id: "CREA-036", title: "Notre Cellule du Jeudi - ACE", image: "/images/affiches/36.webp", category: "Événementiel" },
   { id: "CREA-037", title: "Moins 02 Jours - Apothéose 2026", image: "/images/affiches/37.webp", category: "Teasing" },
+  { id: "CREA-038", title: "Merci d'avoir participé au S2C4", image: "/images/affiches/MERCI_S2C4.webp", category: "Événementiel" },
 ];
